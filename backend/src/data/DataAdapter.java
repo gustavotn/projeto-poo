@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
-import java.util.Dictionary;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 import java.sql.SQLException;
 
 public final class DataAdapter {
@@ -138,11 +138,11 @@ public final class DataAdapter {
 		return null;
 	}
 	
-	public Dictionary<String, Object> ExecuteOne(String Query)
+	public Map<String, Object> ExecuteOne(String Query)
 	{
 		ResultSet result = this.ExecuteSelect(Query);
 		
-		Dictionary<String, Object> ret = new Hashtable<String, Object>();
+		Map<String, Object> ret = new HashMap<String, Object>();
 		
 		int count = 1;
 		
@@ -152,11 +152,11 @@ public final class DataAdapter {
 			
 			result.next();
 			
-			while(result.getObject(count) != null)
+			while(resultMD.getColumnCount() >= count)
 			{
-				count++;
-				
 				ret.put(resultMD.getColumnLabel(count), result.getObject(count));
+				
+				count++;
 			}
 
 			return ret;
