@@ -1,15 +1,16 @@
 package backend;
 
 import data.DataAdapter;
-import model.Pessoa;
+
+import model.Product;
 
 public class Backend {
 
 	public static void main(String[] args) {
 		DataAdapter.getCurrent().Connect();
 		
-		Pessoa pessoa = new Pessoa();
+		Product pessoa = new Product(2);
 		
-		pessoa.Carrega("");
+		System.out.print(pessoa.getCode());
 	}
 }
