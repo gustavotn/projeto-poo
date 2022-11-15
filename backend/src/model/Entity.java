@@ -1,6 +1,7 @@
 package model;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +41,7 @@ public abstract class Entity {
 	public Map<String, String> getColumns(){
 		Map<String, String> ret = new HashMap<String, String>();
 		
-		ret.put("ID", "m_code");
+		ret.put("ID", "setCode");
 		
 		return ret;
 	}
@@ -63,23 +64,30 @@ public abstract class Entity {
 
 		Map<String, Object> result = DataAdapter.getCurrent().ExecuteOne(select.getSQL());
 		
-		Field[] fields = this.getClass().getDeclaredFields();
-		Field[] superfields = this.getClass().getSuperclass().getDeclaredFields();
+		Method[] methods = this.getClass().getDeclaredMethods();
 		
-		try {
+		Method[] superMethod = this.getClass().getSuperclass().getMethods();
+
+		
+		try 
+		{
 			for(Map.Entry<String, Object> entry : result.entrySet())
 			{
-				for(int i = 0; i < fields.length; i++) {
-					if (fields[i].getName() == entry.getKey())
+				for(int i = 0; i < methods.length; i++) {
+					if (methods[i].getName().equals(entry.getKey().toString()))
 					{
-						fields[i].set(this, entry.getValue());
+						Object value = entry.getValue();
+						methods[i].invoke(this, value);
+						i = methods.length;
 					}
 				}
 				
-				for(int i = 0; i < superfields.length; i++) {
-					if (superfields[i].getName() == entry.getKey())
+				for(int i = 0; i < superMethod.length; i++) {
+					if (superMethod[i].getName().equals(entry.getKey().toString()))
 					{
-						superfields[i].set(this, entry.getValue());
+						Object value = entry.getValue();
+						superMethod[i].invoke(this, value);
+						i = superMethod.length;
 					}
 				}
 			}

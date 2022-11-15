@@ -58,9 +58,9 @@ public class Product extends Entity {
 	public Map<String, String> getColumns(){
 		Map<String, String> ret = super.getColumns();
 		
-		ret.put("NAME", "m_name");
-		ret.put("DESCRIPTION", "m_description");
-		ret.put("PRICE", "m_price");
+		ret.put("NAME", "setName");
+		ret.put("DESCRIPTION", "setDescription");
+		ret.put("PRICE", "setPrice");
 		
 		return ret;
 	}
@@ -99,6 +99,6 @@ public class Product extends Entity {
 			e.printStackTrace();
 		}
 		
-		return null;
+		return produtos;
 	}
 }

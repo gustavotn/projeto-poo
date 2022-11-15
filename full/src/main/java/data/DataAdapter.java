@@ -13,7 +13,7 @@ public final class DataAdapter {
 	
 	private DataAdapter() 
 	{		
-		this.m_url = "jdbc:sqlite:db/database.db";
+		this.m_url = "jdbc:sqlite:C:/Git/projeto-poo/backend/db/database.db";
 	}
 	
 	private static DataAdapter m_current;
@@ -34,6 +34,16 @@ public final class DataAdapter {
 		{
 			Class.forName("org.sqlite.JDBC");
 		
+			this.m_connection = DriverManager.getConnection(this.m_url);
+		}
+		catch(Exception err)
+		{
+			System.err.println(err.getMessage());
+			return false;
+		}
+		
+		try
+		{
 			this.m_connection = DriverManager.getConnection(this.m_url);
 		}
 		catch(Exception err)
