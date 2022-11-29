@@ -24,7 +24,7 @@
 
     <div id="container">
         <h2>Produtos</h2>
-       <form action="lista" method="post" class="testes">
+       <form action="lista" method="get" class="testes">
             
 			<input id="bananaButton" type="submit" name="listar"
 						value="Consultar Produto">

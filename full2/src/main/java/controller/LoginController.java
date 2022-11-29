@@ -6,29 +6,36 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Product;
-
 import java.io.IOException;
 
-import data.DataAdapter;
 
-
-public class ListaProdutoController extends HttpServlet {
+public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-    public ListaProdutoController() {
+    public LoginController() {
         super();
     }
 
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-	
-		request.setAttribute("produtos", Product.ListaTodos());
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		System.out.print("teste");
+		
+		String user = request.getParameter("user");
+		String pwd = request.getParameter("pwd");
+		
+		System.out.print(user);
+		System.out.print(pwd);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("listaProduto.jsp");
 		
 		dispatcher.forward(request, response);
 	}
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+
 }

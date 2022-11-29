@@ -68,17 +68,13 @@ public class Product extends Entity {
 	@Override
 	public boolean Grava()
 	{
-		super.Grava();
-		
-		return true;
+		return super.Grava();
 	}
 	
 	@Override
 	public boolean Carrega(int code)
 	{
-		super.Carrega(code);
-		
-		return true;
+		return super.Carrega(code);
 	}
 	
 	public static ArrayList<Product> ListaTodos(){
