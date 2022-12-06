@@ -13,7 +13,10 @@ public final class DataAdapter {
 	
 	private DataAdapter() 
 	{		
-		this.m_url = "jdbc:sqlite:C:/Git/projeto-poo/backend/db/database.db";
+		this.m_url = "jdbc:sqlite:database.db";
+
+		this.Disconnect();
+		this.Connect();
 	}
 	
 	private static DataAdapter m_current;
@@ -32,21 +35,10 @@ public final class DataAdapter {
 	{
 		try
 		{
-			Class.forName("org.sqlite.JDBC");
-		
 			this.m_connection = DriverManager.getConnection(this.m_url);
+
 		}
-		catch(Exception err)
-		{
-			System.err.println(err.getMessage());
-			//return false;
-		}
-		
-		try
-		{
-			this.m_connection = DriverManager.getConnection(this.m_url);
-		}
-		catch(Exception err)
+		catch(SQLException err)
 		{
 			System.err.println(err.getMessage());
 			return false;
@@ -78,7 +70,7 @@ public final class DataAdapter {
 	{
 		try
 		{
-			if (this.Connect())
+			if (this.m_connection != null)
 			{
 				Statement stmt = this.m_connection.createStatement();
 				
@@ -98,7 +90,7 @@ public final class DataAdapter {
 	{
 		try
 		{
-			if (this.Connect())
+			if (this.m_connection != null)
 			{
 				Statement stmt = this.m_connection.createStatement();
 				
@@ -150,6 +142,7 @@ public final class DataAdapter {
 	
 	public Map<String, Object> ExecuteOne(String Query)
 	{
+
 		ResultSet result = this.ExecuteSelect(Query);
 		
 		Map<String, Object> ret = new HashMap<String, Object>();

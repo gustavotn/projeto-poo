@@ -1,2 +1,10 @@
+servlet\ListaProdutosServlet.class
+servlet\ExcluirController.class
+servlet\DashboardServlet.class
+model\Entity.class
+model\Product.class
+data\SQLSelect.class
+servlet\CadastrarController.class
 data\DataAdapter.class
+model\User.class
 servlet\LoginServlet.class
